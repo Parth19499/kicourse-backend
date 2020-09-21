@@ -3,7 +3,7 @@ const { model: Course, validate: validateCourse } = require("../models/Course");
 
 exports.get = (req, res) => {
   Course.find(req.query, (err, result) => {
-    if (err) return console.log(err);
+    if (err) return logger.error(err);
     res.send(result);
   });
 };
@@ -27,14 +27,14 @@ exports.insert = async (req, res) => {
     if (err) {
       if (err.code && err.code === 11000)
         res.status(400).send("Course already present");
-      return console.error(err);
+      return logger.error(err);
     }
     res.send(result);
   });
 };
 
 exports.update = async (req, res) => {
-  console.log("Update body", req.body);
+  logger.info("Update body", req.body);
   const { error } = validateCourse(req.body);
   if (error) {
     res.status(400).send(error.details[0].message);
@@ -48,7 +48,7 @@ exports.update = async (req, res) => {
     duration: req.body.duration,
   };
   Course.findByIdAndUpdate(req.params.id, { $set: data }, (err, result) => {
-    if (err) return console.log(err);
+    if (err) return logger.info(err);
     if (!result)
       return res
         .status(404)
@@ -59,7 +59,7 @@ exports.update = async (req, res) => {
 
 exports.delete = (req, res) => {
   Course.findByIdAndDelete(req.params.id, (err, result) => {
-    if (err) return console.log(err);
+    if (err) return logger.info(err);
     if (!result)
       return res
         .status(404)
@@ -72,7 +72,7 @@ exports.getById = (req, res) => {
   try {
     Course.findById(req.params.id, (err, result) => {
       if (err) {
-        return console.log(err);
+        return logger.info(err);
       }
       if (!result) return res.status(404).send("Course not found!!");
       res.send(result);
@@ -80,6 +80,6 @@ exports.getById = (req, res) => {
   } catch (ex) {
     // if invalid object id comes
     res.status(404).send("Course not found!!");
-    console.error(ex);
+    logger.error(ex);
   }
 };

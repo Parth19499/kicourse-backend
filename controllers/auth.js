@@ -4,6 +4,7 @@ const jwt = require("jsonwebtoken");
 const config = require("config");
 const _ = require("lodash");
 const bcrypt = require("bcrypt");
+const logger = require("../logger");
 
 exports.getMe = async (req, res) => {
   const obj = await User.findById(req.user._id).select("-_id -password");
@@ -25,8 +26,8 @@ exports.insert = async (req, res) => {
   obj.save((err, result) => {
     if (err) {
       if (err.code && err.code === 11000)
-        res.status(400).send("Object already present");
-      return console.error(err);
+        res.status(400).send("User already present");
+      return logger.error(err);
     }
     res
       .header("x-auth-token", obj.generateAuthToken())
@@ -45,9 +46,8 @@ exports.auth = async (req, res) => {
   const obj = await User.findOne({ email: req.body.email });
   if (!obj) return res.status(400).send("Invalid email or password!");
 
-  const validaPassword = await bcrypt.compare(req.body.password, obj.password);
-  if (!validaPassword)
-    return res.status(400).send("Invalid email or password!");
+  const validPassword = await bcrypt.compare(req.body.password, obj.password);
+  if (!validPassword) return res.status(400).send("Invalid email or password!");
   const token = obj.generateAuthToken();
   res.send(token);
 };
