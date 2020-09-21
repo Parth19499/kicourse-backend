@@ -5,8 +5,8 @@ const { validateObjectId } = require("../middlewares/validateObjectId");
 
 router.get("/", course.get);
 router.get("/:id", validateObjectId, course.getById);
-router.post("/insert", /* auth, */ course.insert);
-router.put("/update/:id", /* [auth, validateObjectId], */ course.update);
-router.delete("/delete/:id", /* [auth, validateObjectId], */ course.delete);
+router.post("/insert", auth, course.insert);
+router.put("/update/:id", [auth, validateObjectId], course.update);
+router.delete("/delete/:id", [auth, validateObjectId], course.delete);
 
 module.exports = router;

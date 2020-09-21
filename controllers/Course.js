@@ -47,14 +47,19 @@ exports.update = async (req, res) => {
     price: req.body.price,
     duration: req.body.duration,
   };
-  Course.findByIdAndUpdate(req.params.id, { $set: data }, (err, result) => {
-    if (err) return logger.info(err);
-    if (!result)
-      return res
-        .status(404)
-        .send("Couldn't perform operation: Something went wrong");
-    res.send(result);
-  });
+  Course.findByIdAndUpdate(
+    req.params.id,
+    { $set: data },
+    { new: true },
+    (err, result) => {
+      if (err) return logger.info(err);
+      if (!result)
+        return res
+          .status(404)
+          .send("Couldn't perform operation: Something went wrong");
+      res.send(result);
+    }
+  );
 };
 
 exports.delete = (req, res) => {
