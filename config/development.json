@@ -1,0 +1,8 @@
+{
+  "app": {
+    "name": "KiCourse",
+    "db-url": "mongodb://localhost:27017/mongoPractice",
+    "port": "",
+    "jwtPrivateKey": ""
+  }
+}

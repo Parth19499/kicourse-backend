@@ -1,0 +1,7 @@
+{
+  "app": {
+    "port": "COURSE_NODE_PORT",
+    "db-url": "COURSE_DB_URL",
+    "jwtPrivateKey": "COURSE_NODE_JWT_PRIVATE_KEY"
+  }
+}
