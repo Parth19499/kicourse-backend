@@ -1,6 +1,13 @@
-- Currently in Development (Backend)
+# KiCourse
 
-Try to create an api system where the user will be able login or signup with proper authentication.
-Once logged in or signed up the user will be able to add his/her online courses,
-course details will include(title of the course, details about the course, price and duration).
-Also the user should be able to modify or delete any of the previously created courses. (backend)
+This is a backend api implemented in Node, Express and mongoDB which supports CRUD operation, email authentication and registration.
+
+endpoints to try
+- to get all courses GET /api/courses
+- to get a course with id GET /api/courses/{id}
+- to insert a new course POST /api/courses/insert
+- to update a course PUT /api/courses/update/{id}
+- to delete a course DELETE /api/courses/delete/{id}
+- to register a user POST /api/auth/register
+- to authenticate a user POST /api/auth
+- to get current user GET /api/auth/me
