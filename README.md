@@ -11,3 +11,5 @@ endpoints to try
 - to register a user POST /api/auth/register
 - to authenticate a user POST /api/auth
 - to get current user GET /api/auth/me
+
+Before starting the project, set required environment variables (look variables in custom-environment-variables.json file).
